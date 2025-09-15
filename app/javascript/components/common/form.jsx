@@ -38,7 +38,7 @@ const Form = () => {
 
   const renderButton = (label) => {
     return (
-      <Button disabled={ this.validate() ? true : false } variant="contained" color="primary">
+      <Button disabled={ Boolean(this.validate())} variant="contained" color="primary">
         {label}
       </Button>
     );
