@@ -1,10 +1,10 @@
 import http from "./httpService";
 import { apiUrl } from "../config.json";
 
-const apiEndpoint = apiUrl + "/users";
+const userUrl = `${apiUrl}/users`;
 
 export async function register({ name, email, password }) {
-  const { data } = await http.post(apiEndpoint, {
+  const { data } = await http.post(userUrl, {
     user:{
       name: name,
       email: email,
@@ -14,8 +14,8 @@ export async function register({ name, email, password }) {
   localStorage.setItem("token", JSON.stringify({ auth_token: null, user: data }));
 }
 
-export async function update_user(id, name, email, password) {
-  const { data } = await http.put(apiEndpoint + '/' + id, {
+export async function updateUser(id, name, email, password) {
+  const { data } = await http.put(userUrl + '/' + id, {
     user: {
       name: name,
       email: email,
@@ -26,22 +26,22 @@ export async function update_user(id, name, email, password) {
 }
 
 export async function users() {
-  const { data: users } = await http.get(apiEndpoint);
+  const { data: users } = await http.get(userUrl);
   return users;
 }
 
-export async function get_user(id) {
-  const { data: user } = await http.get(apiEndpoint + '/' + id );
+export async function getUser(id) {
+  const { data: user } = await http.get(userUrl + '/' + id );
   return user;
 }
 
-export function delete_user(id) {
-  return http.delete(apiEndpoint + '/' + id);
+export function deleteUser(id) {
+  return http.delete(userUrl + '/' + id);
 }
 
 export default {
   users,
   register,
-  get_user,
-  delete_user
+  getUser,
+  deleteUser
 }

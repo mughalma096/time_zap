@@ -7,7 +7,7 @@ import Footer from "../components/./footer";
 
 // import Dashboard from "../components/Dashboard";
 // import { Navbar, Users, UserForm, Profile, TimeZoneForm, Footer } from './components';
-// import { NotFound, LoginForm, RegisterForm, Logout } from './components/Authentication';
+// import { NotFound, Login, Register, Logout } from './components/Authentication';
 
 export default function Root() {
     return (
