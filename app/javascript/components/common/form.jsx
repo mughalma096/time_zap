@@ -1,6 +1,7 @@
-import React, { Component } from "react";
-import { Button } from "@material-ui/core";
+import React, {useState} from "react";
+import { Button } from "@mui/material";
 import Joi from "joi-browser";
+
 import Input from "./input";
 
 const Form = () => {

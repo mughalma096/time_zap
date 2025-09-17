@@ -8,13 +8,11 @@ export const UserContext = createContext({});
 // Create a provider component
 export const Provider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [reload, setReload] = useState(false);
 
     useEffect(() => {
-        if(Boolean(user)) return;
-
-        setUser(auth.getCurrentUser());
-    }, [user]);
+        if(!user)
+            setUser(auth.getCurrentUser());
+    }, []);
 
     return (
         <UserContext.Provider value={{ user }}>
