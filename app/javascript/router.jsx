@@ -5,12 +5,13 @@ import {
 import Login from "./routes/authentication/Login.jsx";
 import ErrorPage from "./ErrorPage.jsx";
 import Register from "./routes/authentication/Register.jsx";
+import Root from "./routes/Root.jsx";
 
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Register />,
+        element: <Root />,
         errorElement: <ErrorPage />,
     },
 ]);

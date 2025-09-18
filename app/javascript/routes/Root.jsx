@@ -2,12 +2,12 @@ import React from "react";
 import {CssBaseline} from "@mui/material";
 import { ToastContainer } from 'react-toastify';
 
-import Navbar from "../components/./navbar";
-import Footer from "../components/./footer";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 // import Dashboard from "../components/Dashboard";
 // import { Navbar, Users, UserForm, Profile, TimeZoneForm, Footer } from './components';
-// import { NotFound, Login, Register, Logout } from './components/Authentication';
+// import { Login, Register, Logout } from './authentication';
 
 export default function Root() {
     return (

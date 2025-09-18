@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import { AppBar, Box, Toolbar, Typography, Menu, Avatar, Button, Tooltip, MenuItem } from '@mui/material';
+import { AppBar, Toolbar, Typography } from '@mui/material';
 
 function Copyright() {
     return (
