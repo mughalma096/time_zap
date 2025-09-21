@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import { LockOutlined } from '@mui/icons-material';
 import { Paper, Link, Avatar, Button, CssBaseline, TextField, FormControlLabel, Checkbox, Grid, Box, Typography, Container } from '@mui/material';
-import { login, getCurrentUser } from './../../services/authService';
+import { login, getCurrentUser } from '@/services/authService';
 
 export default function Login() {
 
