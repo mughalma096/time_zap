@@ -38,7 +38,6 @@ export default function TimeZoneForm() {
                 <Typography component="h1" variant="h5">
                     Add Time Zone
                 </Typography>
-
                 <Box
                     component="form"
                     noValidate

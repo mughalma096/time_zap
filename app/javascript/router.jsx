@@ -2,10 +2,11 @@ import React from "react";
 import {
     createBrowserRouter,
 } from "react-router-dom";
-import Login from "./routes/authentication/Login.jsx";
-import ErrorPage from "./ErrorPage.jsx";
-import Register from "./routes/authentication/Register.jsx";
-import Root from "./routes/Root.jsx";
+
+import Users from "@/routes/user/Users.jsx";
+import { Login, Register } from "@/routes/authentication";
+import ErrorPage from "@/ErrorPage.jsx";
+import Root from "@/routes/Root.jsx";
 
 
 const router = createBrowserRouter([

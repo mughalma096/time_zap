@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Grid, Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
+import { Grid, Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from '@mui/material';
+import { Delete, Edit} from '@mui/icons-material';
 
-import { users, delete_user } from './../../services/userService';
+import { users, deleteUser } from './../../services/userService';
 
 const columns = [
   { id: 'name', label: 'Name', minWidth: 170 },
@@ -12,7 +11,7 @@ const columns = [
   { id: 'actions', label: 'Actions', minWidth: 170, align: 'center' }
 ];
 
-const UserTable = ({admin_user_id, reload, setReload}) => {
+const UserTable = ({admin_user_id}) => {
 
   const [rows, setRows] = useState([]);
   useEffect(async () => {
@@ -35,8 +34,7 @@ const UserTable = ({admin_user_id, reload, setReload}) => {
   };
 
   const handleDeleteButtonClick = (id) => {
-    setReload(!reload)
-    delete_user(id);
+    deleteUser(id);
     setTimeout(() => {
       location.href = '/'
     }, 300)
@@ -81,14 +79,14 @@ const UserTable = ({admin_user_id, reload, setReload}) => {
                                     to={`/user/${id}`}
                                     component={Link}
                                   >
-                                    <EditIcon></EditIcon>
+                                    <Edit></Edit>
                                   </Button>
                                   { admin_user_id != id && <Button
                                     style={{borderRadius: 5}}
                                     className="btn btn-light btn-block w-50 mx-auto"
                                     onClick={ e => handleDeleteButtonClick(id)}
                                   >
-                                    <DeleteIcon></DeleteIcon>
+                                    <Delete></Delete>
                                   </Button> }
                                 </Grid>) : value
                           }

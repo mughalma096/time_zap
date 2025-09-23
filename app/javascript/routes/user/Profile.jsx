@@ -1,11 +1,11 @@
 import React, { useState, useEffect }  from "react";
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import {Grid, Button, Toolbar} from '@mui/material';
+import {Grid, Button, Toolbar, Container, Avatar} from '@mui/material';
 
 import { Add, Edit, Delete } from '@mui/icons-material';
 import TimeZoneTable from '@/time_zone/TimeZoneTable';
 
-import { capitalize } from "@/utild/capitalize";
+import { capitalize } from "@/utils/capitalize";
 import { getUser, deleteUser } from "@/services/userService";
 import { logout, getCurrentUser } from "@/services/authService";
 
@@ -28,7 +28,7 @@ const Profile = () => {
             }
         }
         else{
-            setProfileUser(await get_user(id))
+            setProfileUser(await getUser(id))
         }
     }, [id]);
 
@@ -47,15 +47,13 @@ const Profile = () => {
     let name = profileUser?.name
 
     return (
-        <main style={{
-
-        }}>
+        <Container component="main" maxWidth="xs">
             <Toolbar />
             <div className={classes.toolbar} />
             <Grid container justify="center">
                 <div className="card">
                     <div className="card-body">
-                        <div className="avatar" style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                             <div>
                                 <img
                                     src="https://w7.pngwing.com/pngs/627/693/png-transparent-computer-icons-user-user-icon-thumbnail.png"
@@ -73,7 +71,26 @@ const Profile = () => {
                                     <span className="phone">{profileUser && profileUser.email}</span>
                                 </p>
                             </div>
-                        </div>
+                        </Avatar>
+                        {/*<div className="avatar" style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>*/}
+                        {/*    <div>*/}
+                        {/*        <img*/}
+                        {/*            src="https://w7.pngwing.com/pngs/627/693/png-transparent-computer-icons-user-user-icon-thumbnail.png"*/}
+                        {/*            className="card-img-top"*/}
+                        {/*            alt=""*/}
+                        {/*            width={60}*/}
+                        {/*            height={60}*/}
+                        {/*        />*/}
+                        {/*    </div>*/}
+                        {/*    <div style={{marginTop: 0, marginLeft: 10}}>*/}
+                        {/*        <h3 className="card-title">*/}
+                        {/*            {capitalize(name)}*/}
+                        {/*        </h3>*/}
+                        {/*        <p className="card-text">*/}
+                        {/*            <span className="phone">{profileUser && profileUser.email}</span>*/}
+                        {/*        </p>*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
                         <div>
                             <Button
                                 type="button"
@@ -89,7 +106,7 @@ const Profile = () => {
                                     type="button"
                                     variant="contained"
                                     className={classes.submit}
-                                    style={{ ml: 20}}
+                                    sx={{ ml: 20}}
                                     onClick={ e => handleDeleteButtonClick(profileUser?.id)}
                                 >
                                     <Delete></Delete>
@@ -102,7 +119,7 @@ const Profile = () => {
                 <div style={{display: 'flex', justifyContent: 'center' }}>
                     <h3 style={{marginBottom: 5}}>Time Zones</h3>
                     <Button
-                        style={{borderRadius: 5, position: "absolute", right: 22}}
+                        sx={{borderRadius: 5, position: "absolute", right: 22}}
                         className="btn btn-light"
                         size="small"
                         to={`/${id}/add-timezone`}
@@ -113,8 +130,7 @@ const Profile = () => {
                 </div>
                 <TimeZoneTable user_id={id} />
             </div>
-        </main>
-
+        </Container>
     );
 }
 
