@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import { useNavigate, Link } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import { LockOutlined } from '@mui/icons-material';
-import { Paper, Link, Avatar, Button, CssBaseline, TextField, FormControlLabel, Checkbox, Grid, Box, Typography, Container } from '@mui/material';
-import { login, getCurrentUser } from '@/services/authService';
+import { Paper, Avatar, Button, CssBaseline, TextField, FormControlLabel, Checkbox, Grid, Box, Typography, Container } from '@mui/material';
+import { login } from '@/services/authService';
 
 export default function Login() {
 
@@ -13,12 +13,6 @@ export default function Login() {
         control,
         formState: { errors },
     } = useForm({ defaultValues: { email: '', password: '' } });
-
-    useEffect(() => {
-        if (getCurrentUser()) {
-            navigate('/');
-        }
-    }, [navigate]);
 
     const onSubmit = async (data) => {
         const { email, password } = data;
@@ -103,12 +97,12 @@ export default function Login() {
                     </Button>
                     <Grid container direction="column" spacing={1}>
                         <Grid item>
-                            <Link href="#" variant="body2">
+                            <Link to="#" variant="body2">
                                 Forgot password?
                             </Link>
                         </Grid>
                         <Grid item>
-                            <Link href="/Register" variant="body2">
+                            <Link to="/Register" variant="body2">
                                 Don't have an account? Sign Up
                             </Link>
                         </Grid>

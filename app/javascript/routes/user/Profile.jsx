@@ -3,8 +3,8 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import {Grid, Button, Toolbar, Container, Avatar} from '@mui/material';
 
 import { Add, Edit, Delete } from '@mui/icons-material';
-import TimeZoneTable from '@/time_zone/TimeZoneTable';
 
+import {TimeZoneTable} from '@/routes/time_zone';
 import { capitalize } from "@/utils/capitalize";
 import { getUser, deleteUser } from "@/services/userService";
 import { logout, getCurrentUser } from "@/services/authService";

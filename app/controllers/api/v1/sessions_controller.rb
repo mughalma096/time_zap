@@ -37,6 +37,6 @@ class Api::V1::SessionsController < ActionController::API
 
   # Never trust parameters from the scary internet, only allow the white list
   def session_params
-    params.require(:session).permit!(:email, :password)
+    params.require(:session).permit(:email, :password)
   end
 end

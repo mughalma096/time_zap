@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useForm, Controller } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Avatar, Button, CssBaseline,TextField, FormControlLabel,
-    Checkbox, Link, Grid, Box, Typography, Paper, Container } from '@mui/material';
+    Checkbox, Grid, Box, Typography, Paper, Container } from '@mui/material';
 import {LockOutlined} from '@mui/icons-material';
 
 import { register } from './../../services/userService';
@@ -16,12 +16,6 @@ export default function Register() {
         control,
         formState: { errors },
     } = useForm({ defaultValues: { email: '', password: '' } });
-
-    useEffect(() => {
-        if (getCurrentUser()) {
-            navigate('/');
-        }
-    }, [navigate]);
 
     const onSubmit = async (data) => {
         const { email, password } = data;
@@ -124,7 +118,7 @@ export default function Register() {
                     </Button>
                     <Grid container direction="column" spacing={1}>
                         <Grid item>
-                            <Link href="/Login" variant="body2">
+                            <Link to="/Login" variant="body2">
                                 Already have an account? Sign in
                             </Link>
                         </Grid>
