@@ -1,4 +1,4 @@
-class TimeZonesSerializer < ActiveModel::Serializer
+class TimeZoneSerializer < ActiveModel::Serializer
   attributes :id, :name, :city
   attribute :current_time_in_time_zone
   attribute :browser_time_and_time_zone_difference
