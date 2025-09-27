@@ -1,13 +1,16 @@
 import React, { useEffect } from "react";
-import auth from "@/services/authService";
+import {useNavigate} from "react-router-dom";
+
+import {logout} from "@/services/authService";
 
 const Logout = () => {
-  useEffect(() => {
-    auth.logout();
-    location.href = '/'
-  }, []);
+    const navigate = useNavigate();
+    useEffect(() => {
+        logout();
+        navigate("/");
+    }, []);
 
-  return null;
+    return null;
 }
 
 export default Logout;

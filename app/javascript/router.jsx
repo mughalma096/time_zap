@@ -12,52 +12,52 @@ import { Login, Register, Logout } from "@/routes/authentication";
 
 import {getCurrentUser} from "@/services/authService";
 
-const isAuthenticated = () => {
-    const user = getCurrentUser();
-    return Boolean(user);
-};
+const isAuthenticated = () => Boolean(getCurrentUser());
 
 const ProtectedRoutes = () => {
     const location = useLocation();
-    if (!isAuthenticated()) {
-        return <Navigate to="/login" replace state={{ from: location }} />;
-    }
-    return <Outlet />;
+    return (
+        isAuthenticated() ? <Outlet /> : <Navigate to="/login" replace state={{ from: location }} />
+    )
 };
 
 const PublicRoutes = () => {
-    if (isAuthenticated()) {
-        return <Navigate to="/home" replace />;
-    }
-    return <Outlet />;
-};
+    return (
+        isAuthenticated() ? <Navigate to="/dashboard" replace /> : <Outlet />
+    )
+}
 
 const router = createBrowserRouter([
     {
-        path: "/",
+        path: "/",  // base
         element: <PublicRoutes />,
         errorElement: <ErrorPage />,
         children: [
-            {
-                element: <ProtectedRoutes />,
-                children: [
-                    { index: true, element: <Navigate to="/home" /> },
-                    { path: "home", element: <Users /> },
-                    { path: "profile/:id", element: <Profile /> },
-                    { path: "user/:id", element: <UserForm /> },
-                    { path: ":user_id/add-timezone", element: <TimeZoneForm /> },
-                    { path: "logout", element: <Logout /> },
-                ],
-            },
-            {
-                element: <PublicRoutes />,
-                children: [
-                    { path: "login", element: <Login /> },
-                    { path: "register", element: <Register /> },
-                ],
-            },
-            { path: "*", element: <ErrorPage /> },
+            { path: "login", element: <Login /> },
+            { path: "register", element: <Register /> },
         ],
+    },
+    {
+        path: "/",
+        element: <ProtectedRoutes />,
+        errorElement: <ErrorPage />,
+        children: [
+            {
+                element: <Root />,
+                children: [
+                            { index: true, element: <Navigate to="/dashboard" /> },
+                            { path: "dashboard", element: <Users /> },
+                            { path: "profile/:id", element: <Profile /> },
+                            { path: "user/:id", element: <UserForm /> },
+                            { path: ":user_id/add-timezone", element: <TimeZoneForm /> },
+                            { path: "logout", element: <Logout /> },
+                        ],
+                    },
+        ],
+    },
+    {
+        path: "*",
+        element: <ErrorPage />,
     },
 ]);
 

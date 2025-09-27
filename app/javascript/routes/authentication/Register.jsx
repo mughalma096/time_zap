@@ -5,8 +5,7 @@ import { Avatar, Button, CssBaseline,TextField, FormControlLabel,
     Checkbox, Grid, Box, Typography, Paper, Container } from '@mui/material';
 import {LockOutlined} from '@mui/icons-material';
 
-import { register } from './../../services/userService';
-import {getCurrentUser} from "./../../services/authService";
+import { register } from '@/services/userService';
 
 export default function Register() {
     const navigate = useNavigate();

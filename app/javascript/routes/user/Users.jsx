@@ -1,41 +1,55 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {Add} from '@mui/icons-material';
-import {Grid, Button, Typography, Toolbar, Container} from '@mui/material';
+import {Button, Toolbar, Container, Box, Typography} from '@mui/material';
 
-import UserTable from './UserTable';
-import { getCurrentUser } from "./../../services/authService";
+import {UserTable} from './index.js';
+import {useUser} from "@/contexts/userContext.jsx";
 
-const Users = ({user}) => {
-    let admin_user = user && user.admin;
-    let admin_user_id = user && user.admin && user.id;
-    let help_text = user ? <Link to={`/profile/${user.id}`}>Go to Profile</Link> :
-        <><Link to={`/login`}>Login</Link> or <Link to={`/register`}>Register</Link></>
+const Users = () => {
+    const { user: { admin } } = useUser();
+
     return (
-        <Container component="main" maxWidth="xs">
+        <Container component="main" maxWidth="lg">
             <Toolbar />
-            <Grid>
-                { admin_user ?
-                    (<>
-                        <Grid style={{display: 'flex', height: 50, justifyContent: "center"}}>
-                            <h2>User List</h2>
-                            {/*<Button*/}
-                            {/*  style={{borderRadius: 5, position: "absolute", right: 22}}*/}
-                            {/*  className="btn btn-light"*/}
-                            {/*  size="small"*/}
-                            {/*  to="/add-timezone"*/}
-                            {/*  component={Link}*/}
-                            {/*>*/}
-                            {/*  <Add />*/}
-                            {/*</Button>*/}
-                        </Grid>
-                        <UserTable admin_user_id={admin_user_id} />
-                    </>) :
-                    <Grid style={{display: 'flex', height: 50, justifyContent: "center"}}>
-                        <h3 >Welcome to ECommerce! {help_text}</h3>
-                    </Grid>
-                }
-            </Grid>
+            <Box sx={{ width: '100%', mb: 4 }}>
+                {admin ? (
+                    <>
+                        <Box sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            mb: 3
+                        }}>
+                            <Typography variant="h4" component="h1">
+                                User List
+                            </Typography>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                startIcon={<Add />}
+                                component={Link}
+                                to="/add-timezone"
+                                size="medium"
+                            >
+                                Add
+                            </Button>
+                        </Box>
+                        {/*<UserTable />*/}
+                    </>
+                ) : (
+                    <Box sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        minHeight: '200px'
+                    }}>
+                        <Typography variant="h4" component="h1">
+                            Welcome to Time Zap
+                        </Typography>
+                    </Box>
+                )}
+            </Box>
         </Container>
     );
 };
