@@ -13,35 +13,31 @@ export default function UserForm() {
     // Get ID from URL
     let { id } = useParams();
     const navigate = useNavigate()
-    const [profileUser, setProfileUser] = useState( null );
+    const [user, setUser] = useState( null );
 
-    useEffect(async () => {
-        if (id == null){
-            let currentUser = getCurrentUser();
-            if(currentUser){
-                setProfileUser(currentUser);
-            }
-            else{
-                navigate(`/profile/${id || profileUser.id}`);
-            }
-        }
-        else{
-            let data = await getUser(id)
-            setProfileUser(data);
-        }
+    useEffect( () => {
+        fetchUser().then(r => r)
     }, [id]);
 
+    const fetchUser = async () => {
+        if (id){
+            let data = await getUser(id)
+            setUser(data);
+        }
+    }
+
     useEffect(() => {
-        setValue('name', profileUser && profileUser.name ? profileUser.name : "" )
-        setValue('email', profileUser && profileUser.email ? profileUser.email : "")
-    }, [profileUser])
+        const { name, email } = user;
+        setValue('name', name ?? "" )
+        setValue('email', email ?? "")
+    }, [user])
 
     const { handleSubmit, control, setValue, formState: { errors }} = useForm();
 
     const onSubmit = handleSubmit((data) => {
         let { name, email, password } = data;
         updateUser(id, name, email, password);
-        navigate(`/profile/${id || profileUser.id}`);
+        navigate(`/profile/${id}`);
     });
 
     const changeHandler = (e) => {
@@ -54,7 +50,7 @@ export default function UserForm() {
             <Paper
                 elevation={3}
                 sx={{
-                    mt: 8,
+                    p: 4,
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
@@ -70,71 +66,65 @@ export default function UserForm() {
                     onSubmit={onSubmit}
                     sx={{ mt: 3, width: '100%' }}
                 >
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} sm={12}>
-                            <Controller
-                                name="name"
-                                defaultValue=""
-                                control={control}
-                                onChange={changeHandler}
-                                render={({ field: { onChange, onBlur, value, name, ref } }) =>
-                                    <TextField
-                                        autoComplete="name"
-                                        variant="outlined"
-                                        required
-                                        fullWidth
-                                        id="name"
-                                        value={value}
-                                        onChange={onChange}
-                                        label="Name"
-                                        autoFocus
-                                        helperText={errors.name}
-                                    />}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Controller
-                                name="email"
-                                defaultValue=""
-                                control={control}
-                                onChange={changeHandler}
-                                render={({ field: { onChange, onBlur, value, name, ref } }) =>
-                                    <TextField
-                                        autoComplete="email"
-                                        variant="outlined"
-                                        required
-                                        fullWidth
-                                        value={value}
-                                        onChange={onChange}
-                                        id="email"
-                                        label="Email"
-                                        autoFocus
-                                        helperText={errors.name}
-                                    />}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Controller
-                                name="password"
-                                control={control}
-                                defaultValue=""
-                                onChange={changeHandler}
-                                render={({ field: { onChange, onBlur, value, name, ref } }) =>
-                                    <TextField
-                                        variant="outlined"
-                                        margin="normal"
-                                        required
-                                        fullWidth
-                                        onChange={onChange}
-                                        label="Password"
-                                        type="password"
-                                        id="password"
-                                        autoComplete="current-password"
-                                        helperText={errors.password}
-                                    />}
-                            />
-                        </Grid>
-                    </Grid>
+                    <Controller
+                        name="name"
+                        defaultValue=""
+                        control={control}
+                        onChange={changeHandler}
+                        render={({ field: { onChange, onBlur, value, name, ref } }) =>
+                            <TextField
+                                autoComplete="name"
+                                variant="outlined"
+                                required
+                                margin="normal"
+                                fullWidth
+                                id="name"
+                                value={value}
+                                onChange={onChange}
+                                label="Name"
+                                autoFocus
+                                helperText={errors.name}
+                            />}
+                    />
+                    <Controller
+                        name="email"
+                        defaultValue=""
+                        control={control}
+                        onChange={changeHandler}
+                        render={({ field: { onChange, onBlur, value, name, ref } }) =>
+                            <TextField
+                                autoComplete="email"
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                value={value}
+                                onChange={onChange}
+                                id="email"
+                                label="Email"
+                                autoFocus
+                                helperText={errors.name}
+                            />}
+                    />
+                    <Controller
+                        name="password"
+                        control={control}
+                        defaultValue=""
+                        onChange={changeHandler}
+                        render={({ field: { onChange, onBlur, value, name, ref } }) =>
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                onChange={onChange}
+                                label="Password"
+                                type="password"
+                                id="password"
+                                autoComplete="current-password"
+                                helperText={errors.password}
+                            />}
+                    />
                     <Button
                         type="submit"
                         fullWidth

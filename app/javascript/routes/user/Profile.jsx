@@ -4,7 +4,7 @@ import {Grid, Button, Toolbar, Container, Avatar} from '@mui/material';
 
 import { Add, Edit, Delete } from '@mui/icons-material';
 
-import {TimeZoneTable} from '@/routes/time_zone';
+import { TimeZoneTable } from '@/routes/time_zone';
 import { capitalize } from "@/utils/capitalize";
 import { getUser, deleteUser } from "@/services/userService";
 import { logout, getCurrentUser } from "@/services/authService";
@@ -49,7 +49,6 @@ const Profile = () => {
     return (
         <Container component="main" maxWidth="xs">
             <Toolbar />
-            <div className={classes.toolbar} />
             <Grid container justify="center">
                 <div className="card">
                     <div className="card-body">
@@ -95,7 +94,7 @@ const Profile = () => {
                             <Button
                                 type="button"
                                 variant="contained"
-                                className={classes.submit}
+                                sx={{ mt: 3, mb: 2 }}
                                 to={`/user/${id || profileUser.id}`}
                                 component={Link}
                             >
@@ -105,8 +104,7 @@ const Profile = () => {
                                 <Button
                                     type="button"
                                     variant="contained"
-                                    className={classes.submit}
-                                    sx={{ ml: 20}}
+                                    sx={{ mt: 3, mb: 2, ml: 20}}
                                     onClick={ e => handleDeleteButtonClick(profileUser?.id)}
                                 >
                                     <Delete></Delete>

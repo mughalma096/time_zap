@@ -98,7 +98,6 @@ export default function TimeZoneForm() {
                                         id="utc_difference"
                                         autoComplete="utc_difference"
                                         label="Difference From GMT/UTC"
-                                        autoComplete="city"
                                         autoFocus
                                         helperText={errors.name}
                                         {...field}
