@@ -35,7 +35,7 @@ const Users = () => {
                                 Add
                             </Button>
                         </Box>
-                        {/*<UserTable />*/}
+                        <UserTable />
                     </>
                 ) : (
                     <Box sx={{

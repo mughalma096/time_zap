@@ -52,7 +52,7 @@ export default function ErrorPage() {
                         Sorry, an unexpected error has occurred.
                     </Typography>
                     <Typography variant="body1" color="error" sx={{ mt: 1 }}>
-                        {error.statusText || error.message || 'Unknown error'}
+                        {error?.statusText || error?.message || 'Unknown error'}
                     </Typography>
                     <Box sx={{ mt: 3, display: 'flex', gap: 2 }}>
                         <Button variant="contained" color="primary" onClick={handleRetry}>

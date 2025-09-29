@@ -40,7 +40,7 @@ export default function UserForm() {
 
     const onSubmit = handleSubmit((data) => {
         let { name, email, password } = data;
-        update_user(id, name, email, password);
+        updateUser(id, name, email, password);
         navigate(`/profile/${id || profileUser.id}`);
     });
 
