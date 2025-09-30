@@ -3,17 +3,16 @@ import {useForm, Controller } from "react-hook-form";
 import { useParams, useNavigate } from 'react-router-dom';
 import {
     Button, CssBaseline, TextField,
-    Grid, Box, Typography, Container, Paper, Toolbar
+    Box, Typography, Container, Paper, Toolbar
 } from '@mui/material';
 
 import { getUser, updateUser } from '@/services/userService';
-import {getCurrentUser} from "@/services/authService.js";
 
 export default function UserForm() {
     // Get ID from URL
     let { id } = useParams();
     const navigate = useNavigate()
-    const [user, setUser] = useState( null );
+    const [user, setUser] = useState( {name: "", email: ""} );
 
     useEffect( () => {
         fetchUser().then(r => r)
@@ -21,15 +20,15 @@ export default function UserForm() {
 
     const fetchUser = async () => {
         if (id){
-            let data = await getUser(id)
-            setUser(data);
+            let data = await getUser(id);
+            if(data)
+                setUser(data);
         }
     }
 
     useEffect(() => {
-        const { name, email } = user;
-        setValue('name', name ?? "" )
-        setValue('email', email ?? "")
+        setValue('name', user.name)
+        setValue('email', user.email)
     }, [user])
 
     const { handleSubmit, control, setValue, formState: { errors }} = useForm();

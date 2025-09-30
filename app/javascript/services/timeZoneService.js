@@ -3,20 +3,20 @@ import { apiUrl } from "@/config.json";
 
 const timeZoneUrl = apiUrl + "/time_zone";
 
-export async function userTimeZones(user_id) {
-    let userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
-    const { data: userTimeZones } = await http.get(timeZoneUrl, {
+export async function timeZones(user_id) {
+    let timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
+    const { data: timeZones } = await http.get(timeZoneUrl, {
         params: {
             user_id,
-            user_time_zone: userTimeZone
+            time_zone: timeZone
         }
     });
-    return userTimeZones;
+    return timeZones;
 }
 
-export async function addUserTimeZone(user_id, { name, city, utc_difference }) {
+export async function addTimeZone(user_id, { name, city, utc_difference }) {
     const { data } = await http.post(timeZoneUrl, {
-        user_time_zone: {
+        time_zone: {
             name,
             city,
             user_id,
@@ -25,12 +25,12 @@ export async function addUserTimeZone(user_id, { name, city, utc_difference }) {
     });
 }
 
-export function deleteUserTimeZone(id) {
+export function deleteTimeZone(id) {
     return http.delete(timeZoneUrl + '/' + id)
 }
 
 export default {
-    userTimeZones,
-    addUserTimeZone,
-    deleteUserTimeZone
+    timeZones,
+    addTimeZone,
+    deleteTimeZone
 }

@@ -6,7 +6,7 @@ import {
     Grid, Box, Typography, Container, Paper, Toolbar
 } from '@mui/material';
 
-import { addUserTimeZone } from '@/services/timeZoneService';
+import { addTimeZone } from '@/services/timeZoneService';
 
 export default function TimeZoneForm() {
     // Get ID from URL
@@ -19,7 +19,7 @@ export default function TimeZoneForm() {
         formState: { errors } } = useForm();
 
     const onSubmit = handleSubmit((data) => {
-        addUserTimeZone(user_id, data);
+        addTimeZone(user_id, data);
         navigate(`/profile/${user_id}`);
     });
 
@@ -30,7 +30,7 @@ export default function TimeZoneForm() {
             <Paper
                 elevation={3}
                 sx={{
-                    mt: 8,
+                    p: 4,
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
@@ -42,69 +42,64 @@ export default function TimeZoneForm() {
                     component="form"
                     noValidate
                     onSubmit={onSubmit}
-                    sx={{ mt: 3, width: '100%' }}
+                    sx={{ width: '100%' }}
                 >
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} sm={12}>
-                            <Controller
-                                name="name"
-                                control={control}
-                                defaultValue=""
-                                render={({ field }) =>
-                                    <TextField
-                                        autoComplete="name"
-                                        variant="outlined"
-                                        required
-                                        fullWidth
-                                        id="name"
-                                        label="Time Zone Name"
-                                        autoFocus
-                                        helperText={errors.name}
-                                        {...field}
-                                    />}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Controller
-                                name="city"
-                                control={control}
-                                defaultValue=""
-                                render={({ field }) =>
-                                    <TextField
-                                        autoComplete="city"
-                                        variant="outlined"
-                                        required
-                                        fullWidth
-                                        id="city"
-                                        label="Time Zone City"
-                                        autoComplete="city"
-                                        autoFocus
-                                        helperText={errors.name}
-                                        {...field}
-                                    />}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Controller
-                                name="utc_difference"
-                                control={control}
-                                defaultValue=""
-                                render={({ field }) =>
-                                    <TextField
-                                        variant="outlined"
-                                        required
-                                        type="number"
-                                        fullWidth
-                                        id="utc_difference"
-                                        autoComplete="utc_difference"
-                                        label="Difference From GMT/UTC"
-                                        autoFocus
-                                        helperText={errors.name}
-                                        {...field}
-                                    />}
-                            />
-                        </Grid>
-                    </Grid>
+                    <Controller
+                        name="name"
+                        control={control}
+                        defaultValue=""
+                        render={({ field }) =>
+                            <TextField
+                                autoComplete="name"
+                                variant="outlined"
+                                required
+                                fullWidth
+                                margin="normal"
+                                id="name"
+                                label="Time Zone Name"
+                                autoFocus
+                                helperText={errors.name}
+                                {...field}
+                            />}
+                    />
+                    <Controller
+                        name="city"
+                        control={control}
+                        defaultValue=""
+                        render={({ field }) =>
+                            <TextField
+                                autoComplete="city"
+                                variant="outlined"
+                                required
+                                margin="normal"
+                                fullWidth
+                                id="city"
+                                label="Time Zone City"
+                                autoComplete="city"
+                                autoFocus
+                                helperText={errors.name}
+                                {...field}
+                            />}
+                    />
+                    <Controller
+                        name="utc_difference"
+                        control={control}
+                        defaultValue=""
+                        render={({ field }) =>
+                            <TextField
+                                variant="outlined"
+                                required
+                                margin="normal"
+                                type="number"
+                                fullWidth
+                                id="utc_difference"
+                                autoComplete="utc_difference"
+                                label="Difference From GMT/UTC"
+                                autoFocus
+                                helperText={errors.name}
+                                {...field}
+                            />}
+                    />
                     <Button
                         type="submit"
                         fullWidth

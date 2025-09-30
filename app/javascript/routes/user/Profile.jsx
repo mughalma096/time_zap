@@ -5,37 +5,32 @@ import {Grid, Button, Toolbar, Container, Avatar} from '@mui/material';
 import { Add, Edit, Delete } from '@mui/icons-material';
 
 import { TimeZoneTable } from '@/routes/time_zone';
-import { capitalize } from "@/utils/capitalize";
+import { capitalize, capitalizeFirstChar } from "@/utils/capitalize";
 import { getUser, deleteUser } from "@/services/userService";
-import { logout, getCurrentUser } from "@/services/authService";
+import { logout } from "@/services/authService";
 
 
 const Profile = () => {
     // Get ID from URL
     let { id } = useParams();
     const navigate = useNavigate()
+    const [user, setUser] = useState( {name: "", email: "", admin: false} );
 
-    const [profileUser, setProfileUser] = useState( null );
-
-    useEffect(async () => {
-        if (id == null){
-            let currentUser = getCurrentUser();
-            if(currentUser){
-                setProfileUser(currentUser);
-            }
-            else{
-                navigate('/');
-            }
-        }
-        else{
-            setProfileUser(await getUser(id))
-        }
+    useEffect(() => {
+        fetchUser().then(r => r)
     }, [id]);
+
+    const fetchUser = async () => {
+        if (id){
+            let data = await getUser(id);
+            if(data)
+                setUser(data)
+        }
+    }
 
     const handleDeleteButtonClick = (id) => {
         deleteUser(id);
-        let current_user = getCurrentUser();
-        if(current_user && !current_user.admin){
+        if(!user?.admin){
             logout();
         }
         setTimeout(() => {
@@ -43,93 +38,76 @@ const Profile = () => {
         }, 300)
     }
 
-    let admin_user = profileUser?.admin;
-    let name = profileUser?.name
-
     return (
-        <Container component="main" maxWidth="xs">
-            <Toolbar />
-            <Grid container justify="center">
-                <div className="card">
-                    <div className="card-body">
-                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                            <div>
-                                <img
-                                    src="https://w7.pngwing.com/pngs/627/693/png-transparent-computer-icons-user-user-icon-thumbnail.png"
-                                    className="card-img-top"
-                                    alt=""
-                                    width={60}
-                                    height={60}
-                                />
-                            </div>
-                            <div style={{marginTop: 0, marginLeft: 10}}>
-                                <h3 className="card-title">
-                                    {capitalize(name)}
-                                </h3>
-                                <p className="card-text">
-                                    <span className="phone">{profileUser && profileUser.email}</span>
-                                </p>
-                            </div>
+            <Container component="main" maxWidth="md">
+                <Toolbar />
+                <Grid container justifyContent="center">
+                    <div style={{ width: '100%', boxShadow: '0 2px 8px rgba(0,0,0,0.08)', borderRadius: 12, padding: 20, display: 'flex', gap: 16, alignItems: 'center', background: '#fff' }}>
+                        <Avatar sx={{ bgcolor: 'secondary.main', width: 72, height: 72 }}>
+                            {user?.name
+                                ? capitalizeFirstChar(user?.name)
+                                : <img src="https://w7.pngwing.com/pngs/627/693/png-transparent-computer-icons-user-user-icon-thumbnail.png" alt="" style={{ width: 72, height: 72 }} />}
                         </Avatar>
-                        {/*<div className="avatar" style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>*/}
-                        {/*    <div>*/}
-                        {/*        <img*/}
-                        {/*            src="https://w7.pngwing.com/pngs/627/693/png-transparent-computer-icons-user-user-icon-thumbnail.png"*/}
-                        {/*            className="card-img-top"*/}
-                        {/*            alt=""*/}
-                        {/*            width={60}*/}
-                        {/*            height={60}*/}
-                        {/*        />*/}
-                        {/*    </div>*/}
-                        {/*    <div style={{marginTop: 0, marginLeft: 10}}>*/}
-                        {/*        <h3 className="card-title">*/}
-                        {/*            {capitalize(name)}*/}
-                        {/*        </h3>*/}
-                        {/*        <p className="card-text">*/}
-                        {/*            <span className="phone">{profileUser && profileUser.email}</span>*/}
-                        {/*        </p>*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
-                        <div>
+
+                        <div style={{ flex: 1 }}>
+                            <h3 style={{ margin: 0, fontSize: 20 }}>
+                                {capitalize(user?.name)}
+                            </h3>
+                            <p style={{ margin: '6px 0 0', color: '#666', fontSize: 14 }}>
+                                {user?.email}
+                            </p>
+                        </div>
+
+                        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
                             <Button
                                 type="button"
-                                variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
-                                to={`/user/${id || profileUser.id}`}
+                                variant="outlined"
+                                sx={{ textTransform: 'none' }}
+                                to={`/user/${id}`}
                                 component={Link}
+                                startIcon={<Edit />}
                             >
-                                <Edit></Edit>
+                                Edit
                             </Button>
-                            {!admin_user &&
+
+                            {!user?.admin &&
                                 <Button
                                     type="button"
                                     variant="contained"
-                                    sx={{ mt: 3, mb: 2, ml: 20}}
-                                    onClick={ e => handleDeleteButtonClick(profileUser?.id)}
+                                    color="error"
+                                    sx={{ textTransform: 'none' }}
+                                    onClick={() => handleDeleteButtonClick(id)}
+                                    startIcon={<Delete />}
                                 >
-                                    <Delete></Delete>
-                                </Button>}
+                                    Delete
+                                </Button>
+                            }
                         </div>
                     </div>
+                </Grid>
+
+                <div style={{ marginTop: 28 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+                        <h3 style={{ marginBottom: 5 }}>Time Zones</h3>
+                        <Button
+                            sx={{ borderRadius: 5, position: 'absolute', right: 8, top: -6 }}
+                            size="small"
+                            to={`/${id}/add-timezone`}
+                            component={Link}
+                            variant="contained"
+                            color="primary"
+                            startIcon={<Add />}
+                        >
+                            Add
+                        </Button>
+                    </div>
+
+                    <div style={{ marginTop: 12 }}>
+                        <TimeZoneTable />
+                    </div>
                 </div>
-            </Grid>
-            <div>
-                <div style={{display: 'flex', justifyContent: 'center' }}>
-                    <h3 style={{marginBottom: 5}}>Time Zones</h3>
-                    <Button
-                        sx={{borderRadius: 5, position: "absolute", right: 22}}
-                        className="btn btn-light"
-                        size="small"
-                        to={`/${id}/add-timezone`}
-                        component={Link}
-                    >
-                        <Add />
-                    </Button>
-                </div>
-                <TimeZoneTable user_id={id} />
-            </div>
-        </Container>
-    );
+            </Container>
+        );
 }
 
 export default Profile;

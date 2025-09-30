@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from '@mui/material';
 import { Delete } from '@mui/icons-material';
 
-import { userTimeZones, deleteUserTimeZone } from '@/services/timeZoneService';
+import { timeZones, deleteTimeZone } from '@/services/timeZoneService';
+import {useParams} from "react-router-dom";
 
 const columns = [
     { id: 'name', label: 'Time Zone Name', minWidth: 170 },
@@ -12,18 +13,26 @@ const columns = [
     { id: 'action', label: 'Actions', minWidth: 170, align: 'center' }
 ];
 
-const TimeZoneTable = ({user_id}) => {
+const TimeZoneTable = () => {
 
+    // Get ID from URL
+    let { id } = useParams();
     const [rows, setRows] = useState([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
-    useEffect(async () => {
-        let data = await userTimeZones(user_id);
+    // useEffect(() => {
+    //     fetchTimeZones().then(r => {
+    //         console.log(r)
+    //     })
+    // }, []);
+
+    const fetchTimeZones = async () => {
+        let data = await timeZones(id);
         if(data) {
             setRows(data);
         }
-    }, [user_id]);
+    }
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -35,8 +44,9 @@ const TimeZoneTable = ({user_id}) => {
     };
 
     const handleDeleteButtonClick = (id) => {
-        deleteUserTimeZone(id);
+        deleteTimeZone(id);
     }
+    console.log("rows:", rows.length)
 
     return (
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
