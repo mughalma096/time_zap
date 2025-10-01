@@ -92,7 +92,7 @@ const UserTable = () => {
                                                                         >
                                                                             <Edit></Edit>
                                                                         </Button>
-                                                                        { !admin && <Button
+                                                                        { admin && <Button
                                                                             style={{borderRadius: 5}}
                                                                             className="btn btn-light btn-block w-50 mx-auto"
                                                                             onClick={ e => handleDeleteButtonClick(id)}

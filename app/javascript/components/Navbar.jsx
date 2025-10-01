@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Avatar, Button, Tooltip, MenuItem } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
+import { Menu as MenuIcon } from '@mui/icons-material';
 
 import logo from '@/assets/images/commerce.png';
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+import {useUser} from "@/contexts/userContext.jsx";
+const pages = ['Users'];
 
 function Navbar() {
+    const { user: { id } } = useUser();
+    const navigate = useNavigate();
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -20,9 +22,10 @@ function Navbar() {
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
+        navigate('/dashboard');
     };
 
-    const handleCloseUserMenu = () => {
+    const handleCloseUserMenu = (event) => {
         setAnchorElUser(null);
     };
 
@@ -135,11 +138,12 @@ function Navbar() {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
-                                </MenuItem>
-                            ))}
+                            <MenuItem onClick={() => navigate('/profile/' + id)}>
+                                <Typography sx={{ textAlign: 'center' }}>Profile</Typography>
+                            </MenuItem>
+                            <MenuItem onClick={() => navigate('/logout')}>
+                                <Typography sx={{ textAlign: 'center' }}>Logout</Typography>
+                            </MenuItem>
                         </Menu>
                     </Box>
                 </Toolbar>

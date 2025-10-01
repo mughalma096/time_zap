@@ -1,7 +1,5 @@
 class Api::V1::UsersController < ActionController::API
-  include CanCan::ControllerAdditions
   before_action :find_user, only: [:show, :update, :destroy]
-  before_action :authenticate_user!, except: [:index, :create, :show, :destroy]
 
   def index
     @users = User.all

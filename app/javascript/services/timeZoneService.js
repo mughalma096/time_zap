@@ -1,7 +1,7 @@
 import http from "./httpService";
 import { apiUrl } from "@/config.json";
 
-const timeZoneUrl = apiUrl + "/time_zone";
+const timeZoneUrl = apiUrl + "/time_zones";
 
 export async function timeZones(user_id) {
     let timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone

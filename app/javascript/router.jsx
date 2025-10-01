@@ -6,11 +6,10 @@ import {
 
 import Root from "@/routes/Root";
 import ErrorPage from "@/ErrorPage";
-import {TimeZoneForm} from "@/routes/time_zone";
-import {Profile, UserForm, Users} from "@/routes/user";
+import { TimeZoneForm } from "@/routes/time_zone";
+import { getCurrentUser } from "@/services/authService";
+import { Profile, UserForm, Users } from "@/routes/user";
 import { Login, Register, Logout } from "@/routes/authentication";
-
-import {getCurrentUser} from "@/services/authService";
 
 const isAuthenticated = () => Boolean(getCurrentUser());
 

@@ -21,11 +21,11 @@ const TimeZoneTable = () => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
-    // useEffect(() => {
-    //     fetchTimeZones().then(r => {
-    //         console.log(r)
-    //     })
-    // }, []);
+    useEffect(() => {
+        fetchTimeZones().then(r => {
+            console.log(r)
+        })
+    }, []);
 
     const fetchTimeZones = async () => {
         let data = await timeZones(id);
@@ -101,8 +101,8 @@ const TimeZoneTable = () => {
                     count={rows.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
-                    onChangePage={handleChangePage}
-                    onChangeRowsPerPage={handleChangeRowsPerPage}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
                 />}
         </Paper>
     );

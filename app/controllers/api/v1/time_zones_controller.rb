@@ -19,7 +19,7 @@ class Api::V1::TimeZonesController < ActionController::API
   private
 
   def time_zone_params
-    params.require(:time_zone).permit!(:id, :name, :city, :utc_difference, :user_id)
+    params.require(:time_zone).permit(:id, :name, :city, :utc_difference, :user_id)
   end
 
 end

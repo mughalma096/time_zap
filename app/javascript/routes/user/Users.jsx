@@ -13,7 +13,7 @@ const Users = () => {
         <Container component="main" maxWidth="lg">
             <Toolbar />
             <Box sx={{ width: '100%', mb: 4 }}>
-                {/* Header Card */}
+                {admin ? (
                 <Box sx={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -69,12 +69,8 @@ const Users = () => {
                             </Button>
                         </Box>
                     </Box>
+                    <UserTable />
                 </Box>
-
-                {admin ? (
-                    <Box sx={{ borderRadius: 2, p: 2, bgcolor: 'background.paper', boxShadow: 1 }}>
-                        <UserTable />
-                    </Box>
                 ) : (
                     <Box sx={{
                         display: 'flex',
