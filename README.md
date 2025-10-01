@@ -6,15 +6,12 @@ A full-stack application built with **Ruby on Rails 7** and **React 19**, using 
 ## 📸 Screenshots
 
 ### Login Page
-![Login Page]
 <img width="1293" height="646" alt="Screenshot from 2025-10-01 22-50-00" src="https://github.com/user-attachments/assets/3eab3ab3-bcb7-4990-af64-59088eb89112" />
 
 ### Dashboard
-![Dashboard]
 <img width="1293" height="646" alt="Screenshot from 2025-10-01 22-50-21" src="https://github.com/user-attachments/assets/7694cd5a-4637-450f-a09a-7c7bdde46758" />
 
 ### User Profile
-![User Profile]
 <img width="1296" height="655" alt="Screenshot from 2025-10-01 22-49-02" src="https://github.com/user-attachments/assets/e1b00d4a-1c20-44bc-a353-18b9c0ac3be7" />
 
 ---
